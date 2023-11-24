@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "categories")
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "name")
 @ToString
 public class Category {
 
@@ -26,5 +26,6 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
+    @ToString.Exclude
     private List<News> news = new ArrayList<>();
 }
