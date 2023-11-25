@@ -37,7 +37,7 @@ public class NewsController {
                          @RequestParam(value = "title", required = false) String title,
                          @RequestParam(value = "content", required = false) String content,
                          @RequestParam(value = "category", required = false) Category category) {
-        // if category is not found then it is null, therefore it is not applied as condition
+
         var news = newsService.getAllByParams(title, content, category);
 
         model.addAttribute("listNews", news);
@@ -58,7 +58,7 @@ public class NewsController {
         return "news/createForm";
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public String processCreation(Model model,
                          @ModelAttribute @Valid News news, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -81,7 +81,7 @@ public class NewsController {
         return "news/updateForm";
     }
 
-    @PatchMapping("/{id}/edit")
+    @PatchMapping("/{id}")
     public String processUpdating(@PathVariable Long id,
                                   @ModelAttribute @Valid News news, BindingResult bindingResult,
                                   Model model) {

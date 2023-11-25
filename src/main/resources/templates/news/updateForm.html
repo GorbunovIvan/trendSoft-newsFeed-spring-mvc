@@ -6,8 +6,8 @@
 </head>
 <body>
 <div>
-    <h3>Adding news</h3>
-    <form method="POST" th:action="@{/news/__${news.getId()}__/edit}" th:object="${news}">
+    <h3>Updating news</h3>
+    <form method="POST" th:action="@{/news/__${news.getId()}__}" th:object="${news}">
         <input type="hidden" name="_method" value="PATCH">
         <div>
             <label>Title: <input type="text" th:field="*{title}"/></label>

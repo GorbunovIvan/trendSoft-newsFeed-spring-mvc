@@ -33,7 +33,7 @@ public class News {
     private String content;
 
     @Column(name = "published_at")
-    @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime publishedAt;
 
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })

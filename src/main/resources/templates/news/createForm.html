@@ -7,7 +7,7 @@
 <body>
 <div>
     <h3>Adding news</h3>
-    <form method="POST" action="/news/add" th:object="${news}">
+    <form method="POST" action="/news" th:object="${news}">
         <div>
             <label>Title: <input type="text" th:field="*{title}"/></label>
             <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title error</div>
