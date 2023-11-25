@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${'News :: ' + news.getTitle()}">Title</title>
+</head>
+<body>
+<div>
+    <h3 th:text="${news.getTitle()}">Title</h3>
+    <div>
+        Published at: <span th:text="${news.getPublishedAtShortened()}">published at</span>
+        in category <a th:href="@{/news?category=__${news.getCategory().getName()}__}" th:text="${news.getCategory().getName()}">category</a>
+    </div>
+    <hr/>
+    <p th:text="${news.getContent()}">content</p>
+    <hr/>
+    <div>
+        <p><a th:href="@{/news/__${news.getId()}__/edit}">Edit the news</a></p>
+        <form method="POST" th:action="@{/news/__${news.getId()}__}">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete the news"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

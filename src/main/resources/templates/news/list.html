@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News</title>
+</head>
+<body>
+    <div>
+        <h3>News</h3>
+        <div>
+            <form method="GET" action="/news">
+                <label><input type="text" name="title" th:value="${title}" placeholder="title"/></label>
+                <label><input type="text" name="content" th:value="${content}" placeholder="content"/></label>
+                <label>
+                    <select id="category" name="category">
+                        <option  th:selected="${category == null}" style="color:#757575">all categories</option>
+                        <option th:each="categoryOpt : ${categories}" th:value="${categoryOpt.name}" th:text="${categoryOpt.name}" th:selected="${categoryOpt.equals(category)}"></option>
+                    </select>
+                </label>
+                <input type="submit" value="Find the news"/>
+            </form>
+        </div>
+        <div>
+            <div th:if="${title != null}">
+                <p>by title containing '<span th:text="${title}">title</span>'</p>
+            </div>
+            <div th:if="${content != null}">
+                <p>by content containing '<span th:text="${content}">content</span>'</p>
+            </div>
+            <div th:if="${category != null}">
+                <p>by category '<span th:text="${category.getName()}">category</span>'</p>
+            </div>
+        </div>
+        <div th:each="news : ${listNews}">
+            <p><a th:href="@{/news/__${news.getId()}__}" th:text="${news.shortView()}">news</a></p>
+        </div>
+        <hr/>
+        <a href="/news/add">Add news</a>
+    </div>
+</body>
+</html>

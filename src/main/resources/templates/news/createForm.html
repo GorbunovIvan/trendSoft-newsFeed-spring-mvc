@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Adding news</title>
+</head>
+<body>
+<div>
+    <h3>Adding news</h3>
+    <form method="POST" action="/news/add" th:object="${news}">
+        <div>
+            <label>Title: <input type="text" th:field="*{title}"/></label>
+            <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title error</div>
+        </div>
+        <div>
+            <label>Content: <textarea th:field="*{content}"></textarea></label>
+            <div style="color:red" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content error</div>
+        </div>
+        <div>
+            <label>Category:
+                <select id="category" name="category">
+                    <option th:each="category : ${categories}" th:value="${category.name}" th:text="${category.name}"></option>
+                </select>
+            </label>
+            <div style="color:red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Category error</div>
+        </div>
+        <br/>
+        <div>
+            <input type="submit" value="Add the news"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>
