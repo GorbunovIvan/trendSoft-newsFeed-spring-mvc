@@ -22,7 +22,7 @@ public class Category {
 
     @Column(name = "name", unique = true)
     @NotNull
-    @Size(min = 1, max = 199, message = "The name size must be between 1 and 49 characters")
+    @Size(min = 1, max = 49, message = "The name size must be between 1 and 49 characters")
     private String name;
 
     @OneToMany(mappedBy = "category")
