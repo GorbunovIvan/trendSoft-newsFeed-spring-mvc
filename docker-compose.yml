@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+
+  #  PostgreSQL service
+  postgres-db:
+    image: postgres
+    ports:
+      - "6432:5432"
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_DB: trendSoft-newsFeed-spring-mvc
+
+  #  App
+  trendSoft-newsFeed-spring-mvc:
+    depends_on:
+      - postgres-db
+    image: trendsoft-news-feed-spring-mvc-image
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+          "spring.datasource.url" : "jdbc:postgresql://postgres-db:5432/trendSoft-newsFeed-spring-mvc",
+          "spring.datasource.username" : "postgres",
+          "spring.datasource.password" : "root",
+          
+          "spring.datasource.initialization-mode" : "always",
+          "spring.datasource.continue-on-error" : "true",
+          "spring.datasource.max-wait" : "30000",
+          
+          "spring.jpa.show-sql" : "true",
+          "spring.jpa.open-in-view" : "false",
+          "spring.jpa.hibernate.ddl-auto" : "update",
+
+          "spring.mvc.hiddenmethod.filter.enabled" : "true"
+      }'
+
