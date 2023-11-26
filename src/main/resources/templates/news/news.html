@@ -6,6 +6,7 @@
 </head>
 <body>
 <div>
+    <div th:insert="~{fragments/menu :: commonMenu}"></div>
     <h3 th:text="${news.getTitle()}">Title</h3>
     <div>
         Published at: <span th:text="${news.getPublishedAtShortened()}">published at</span>

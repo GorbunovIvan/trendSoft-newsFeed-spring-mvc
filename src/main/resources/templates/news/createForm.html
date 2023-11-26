@@ -6,6 +6,7 @@
 </head>
 <body>
 <div>
+    <div th:insert="~{fragments/menu :: commonMenu}"></div>
     <h3>Adding news</h3>
     <form method="POST" action="/news" th:object="${news}">
         <div>
