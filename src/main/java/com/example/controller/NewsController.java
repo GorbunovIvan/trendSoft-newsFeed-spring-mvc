@@ -5,6 +5,7 @@ import com.example.model.Category;
 import com.example.model.News;
 import com.example.service.CategoryService;
 import com.example.service.NewsService;
+import io.micrometer.core.annotation.Timed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ public class NewsController {
     }
 
     @GetMapping
+    @Timed("controller.getAll")
     public String getAll(Model model,
                          @RequestParam(value = "title", required = false) String title,
                          @RequestParam(value = "content", required = false) String content,

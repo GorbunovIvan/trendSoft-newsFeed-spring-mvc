@@ -4,19 +4,33 @@ import com.example.exception.NewsNotFoundException;
 import com.example.model.Category;
 import com.example.model.News;
 import com.example.repository.NewsRepository;
+import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
 public class NewsService {
 
     private final NewsRepository newsRepository;
+
+    private MeterRegistry meterRegistry;
+
+    private static final AtomicInteger GET_ALL_BY_PARAMS_REQUESTS_COUNTER = new AtomicInteger();
+
+    @Autowired
+    public void setMeterRegistry(MeterRegistry meterRegistry) {
+        this.meterRegistry = meterRegistry;
+        this.meterRegistry.gauge("getAllByParamsRequestsCounter", GET_ALL_BY_PARAMS_REQUESTS_COUNTER);
+    }
 
     public News getById(Long id) {
         return newsRepository.findById(id)
@@ -27,7 +41,10 @@ public class NewsService {
         return newsRepository.findAll();
     }
 
+    @Timed("service.getAllByParams")
     public List<News> getAllByParams(String title, String content, Category category) {
+
+        GET_ALL_BY_PARAMS_REQUESTS_COUNTER.incrementAndGet();
 
         List<News> result;
 
